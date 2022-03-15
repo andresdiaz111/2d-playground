@@ -5,9 +5,10 @@
 class Vector
 {
     public:
-        int X,Y;
+        int X, Y;
     public:
         Vector(float x=0, float y=0): X(x), Y(y) {}
+
     public:
         inline Vector operator+(const Vector &v2) const
         {

@@ -2,7 +2,6 @@
 #define TRANSFORMATION_H
 
 #include "Vector.h"
-
 class Transformation
 {
     public:
@@ -14,7 +13,7 @@ class Transformation
             std::cout << msg << "(X Y) = (" << X << " " << Y << ")"<< std::endl;
         }
 
-    private:
+    public:
         inline void TranslateX(float x)
         {
             X += x;

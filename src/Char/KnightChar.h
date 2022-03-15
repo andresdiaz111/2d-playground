@@ -3,6 +3,7 @@
 
 #include "Animation.h"
 #include "CharacterModel.h"
+#include "RigidBody.h"
 
 class KnightChar: public CharacterModel
 {
@@ -16,8 +17,8 @@ class KnightChar: public CharacterModel
     private:
         //int m_Row, m_Frame, m_FrameCount;
         //int m_AnimationSpeed;
-
         Animation *m_Animation;
+        RigidBody *m_RigidBody;
 };
 
 #endif // KNIGHTCHAR_H

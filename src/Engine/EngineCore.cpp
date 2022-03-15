@@ -1,6 +1,9 @@
 #include "EngineCore.h"
 #include "../Textures/TextureController.h"
 #include "Transformation.h"
+#include "KnightChar.h"
+
+KnightChar *player = nullptr;
 
 EngineCore *EngineCore::s_Instance = nullptr;
 
@@ -25,7 +28,8 @@ bool EngineCore::Init()
         SDL_Log("Fail to create renderer SDL error: %s", SDL_GetError());
         return false;
     }
-    TextureController::GetInstance()->LoadTexture("tree", "assets/tree.png");
+    TextureController::GetInstance()->LoadTexture("Knight", "assets/knight2idle.png");
+    player = new KnightChar(new Properties("Knight", 100, 200, 120, 100));
     Transformation tf;
     tf.Log();
     return m_IsRunning = true;
@@ -47,7 +51,7 @@ void EngineCore::Quit()
 
 void EngineCore::Update()
 {
-
+    player->UpdateObject(0);
 }
 
 void EngineCore::Render()
@@ -55,7 +59,8 @@ void EngineCore::Render()
     SDL_SetRenderDrawColor(m_Renderer, 124, 219, 254, 255);
     SDL_RenderClear(m_Renderer);
 
-    TextureController::GetInstance()->DrawTexture("tree", 100, 100, 64, 128);
+
+    player->DrawObject();
     SDL_RenderPresent(m_Renderer);
 }
 

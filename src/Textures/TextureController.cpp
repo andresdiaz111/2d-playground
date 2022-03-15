@@ -45,3 +45,10 @@ void TextureController::DrawTexture(std::string id, int x, int y, int width, int
     SDL_Rect destination = {x, y, width, height};
     SDL_RenderCopyEx(EngineCore::GetInstance()->GetRenderer(), m_TextureMap[id], &src, &destination, 0, nullptr, flip);
 }
+
+void TextureController::DrawFrame(std::string id, int x, int y, int width, int height,int row, int frame ,SDL_RendererFlip flip)
+{
+    SDL_Rect src = {width*frame, height*row, width, height};
+    SDL_Rect destination = {x, y, width, height};
+    SDL_RenderCopyEx(EngineCore::GetInstance()->GetRenderer(), m_TextureMap[id], &src, &destination, 0, nullptr, flip);
+}
