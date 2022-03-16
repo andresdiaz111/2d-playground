@@ -3,6 +3,7 @@
 #include "Transformation.h"
 #include "KnightChar.h"
 #include "EventHandlers.h"
+#include "Clock.h"
 
 KnightChar *player = nullptr;
 
@@ -53,7 +54,8 @@ void EngineCore::Quit()
 
 void EngineCore::Update()
 {
-    player->UpdateObject(0);
+    float dt = Clock::GetInstance()->GetDeltaTime();
+    player->UpdateObject(dt);
 }
 
 void EngineCore::Render()

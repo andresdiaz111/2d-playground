@@ -1,5 +1,6 @@
 #include "Engine/EngineCore.h"
 #include "RigidBody.h"
+#include "Clock.h"
 int main(int argc, char **argv)
 {
     EngineCore::GetInstance()->Init();
@@ -8,6 +9,8 @@ int main(int argc, char **argv)
         EngineCore::GetInstance()->Events();
         EngineCore::GetInstance()->Update();
         EngineCore::GetInstance()->Render();
+        Clock::GetInstance()->GetTick();
+
     }
 
     EngineCore::GetInstance()->Clean();
