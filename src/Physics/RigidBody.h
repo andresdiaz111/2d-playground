@@ -6,6 +6,12 @@
 
 #define UNIT_MASS 1.0f
 #define GRAVITY 9.8f
+
+#define RIGHT 1
+#define LEFT -1
+
+#define UP -1
+#define DOWN 1
 class RigidBody
 {
     public:

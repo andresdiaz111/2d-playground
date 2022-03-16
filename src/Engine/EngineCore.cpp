@@ -2,6 +2,7 @@
 #include "../Textures/TextureController.h"
 #include "Transformation.h"
 #include "KnightChar.h"
+#include "EventHandlers.h"
 
 KnightChar *player = nullptr;
 
@@ -29,6 +30,7 @@ bool EngineCore::Init()
         return false;
     }
     TextureController::GetInstance()->LoadTexture("Knight", "assets/knight2idle.png");
+    TextureController::GetInstance()->LoadTexture("Knight_run", "assets/knight2run.png");
     player = new KnightChar(new Properties("Knight", 100, 200, 120, 100));
     Transformation tf;
     tf.Log();
@@ -66,12 +68,5 @@ void EngineCore::Render()
 
 void EngineCore::Events()
 {
-    SDL_Event event;
-    SDL_PollEvent(&event);
-    switch(event.type)
-    {
-        case SDL_QUIT:
-            Quit();
-            break;
-    }
+    EventHandlers::GetInstance()->ListenEvent();
 }
