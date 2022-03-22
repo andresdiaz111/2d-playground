@@ -5,8 +5,8 @@
 #include "SDL_image.h"
 #include "Map.h"
 
-#define WINDOW_WIDTH 500
-#define WINDOW_HEIGHT 500
+#define WINDOW_WIDTH 960
+#define WINDOW_HEIGHT 640
 
 class EngineCore
 {

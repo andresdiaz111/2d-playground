@@ -5,29 +5,31 @@
 #include <string>
 #include <vector>
 
-struct TileSet
-{
-    int firstID, lastID;
-    int rowsCount, colCount;
-    int nTile, tileSize;
-    std::string name, source;
+struct Tileset{
+    int FirstID, LastID;
+    int RowCount, ColCount;
+    int TileCount, TileSize;
+    std::string Name, Source;
 };
 
-using tileList = std::vector<TileSet>;
-using tileMap = std::vector<std::vector<int>>;
+using TilesetsList = std::vector<Tileset> ;
+using TileMap = std::vector<std::vector<int> >;
 
-class TileManager : public LayerManager
-{
+class TileManager : public LayerManager{
+
     public:
-        TileManager(int tileSize, int rowCount, int colCount, tileMap tilemap, tileList tileSet);
-        virtual void RenderLayer();
-        virtual void UpdateLayer();
-        inline tileMap GetTileMap() { return m_TileMap;}
+        TileManager(int tilesize, int width, int height, TileMap tilemap, TilesetsList tilesets);
+
+        virtual void Render();
+        virtual void Update();
+        inline TileMap GetTileMap(){return m_Tilemap;}
+
     private:
         int m_TileSize;
-        int m_NRows, m_ColCount;
-        tileMap m_TileMap;
-        tileList m_TileSet;
+        int m_ColCount, m_RowCount;
+
+        TileMap m_Tilemap;
+        TilesetsList m_Tilesets;
 };
 
 #endif // TILEMANAGER_H

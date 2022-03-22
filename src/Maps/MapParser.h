@@ -8,27 +8,22 @@
 #include "tinyxml.h"
 class MapParser
 {
-    public:
+   public:
         bool LoadMapParser();
-        void CleanMapParsers();
+        void CleanMapParser();
 
-        inline Map *GetMaps(std::string id)
-        {
-            return m_Maps[id];
-        }
-        inline static MapParser *GetInstance()
-        {
-            return s_Instance = (s_Instance != nullptr) ? s_Instance : new MapParser();
-        }
+        inline Map* GetMap(std::string id){return m_MapDict[id];}
+        inline static MapParser* GetInstance(){ return s_Instance = (s_Instance != nullptr)? s_Instance : new MapParser();}
 
-    private:
-        bool Parse(std::string id,  std::string path);
-        TileSet ParseTileList(TiXmlElement *xmlTileSet);
-        TileManager *ParseTileLayer(TiXmlElement *xmlLayer, tileList tileset, int tilesize, int rowcount, int colcount);
     private:
         MapParser(){}
-        static MapParser *s_Instance;
-        std::map<std::string, Map*> m_Maps;
+
+        bool Parse(std::string id, std::string source);
+        Tileset ParseTileset(TiXmlElement* xmlTileset);
+        TileManager* ParseTileLayer(TiXmlElement* xmlLayer, std::vector<Tileset> tilesets, int tilesize, int rowcount, int colcount);
+
+        static MapParser* s_Instance;
+        std::map<std::string, Map*> m_MapDict;
 };
 
 #endif // MAPPARSER_H

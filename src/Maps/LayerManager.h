@@ -5,8 +5,8 @@
 class LayerManager
 {
     public:
-        virtual void RenderLayer()=0;
-        virtual void UpdateLayer()=0;
+        virtual void Render()=0;
+        virtual void Update()=0;
 
 };
 

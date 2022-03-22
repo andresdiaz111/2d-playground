@@ -38,7 +38,7 @@ bool EngineCore::Init()
         std::cout <<"Fail to load map" << std::endl;
     }
 
-    m_map = MapParser::GetInstance()->GetMaps("map");
+    m_map = MapParser::GetInstance()->GetMap("map");
 
     TextureController::GetInstance()->LoadTexture("Knight", "assets/knight2idle.png");
     TextureController::GetInstance()->LoadTexture("Knight_run", "assets/knight2run.png");
@@ -55,6 +55,7 @@ bool EngineCore::Clean()
     SDL_DestroyWindow(m_Window);
     IMG_Quit();
     SDL_Quit();
+    return true;
 }
 
 void EngineCore::Quit()

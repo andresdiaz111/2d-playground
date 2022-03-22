@@ -1,63 +1,57 @@
 #include "TileManager.h"
 #include "Textures/TextureController.h"
 
-TileManager::TileManager(int tileSize, int rowCount, int colCount, tileMap tilemap, tileList tileSet) :
-m_TileSet (tileSize)
+TileManager::TileManager(int tilesize, int colcount, int rowcount, TileMap tilemap, TilesetsList tilesets):
+m_TileSize(tilesize)
 {
-    m_NRows = rowCount;
-    m_ColCount = colCount;
-    m_TileMap = tilemap;
-    m_TileSet = tileSet;
+    m_RowCount = rowcount;
+    m_ColCount = colcount;
+    m_Tilemap = tilemap;
+    m_Tilesets = tilesets;
 
-    for(unsigned int i = 0 ; i < m_TileSet.size(); i++)
-    {
-        TextureController::GetInstance()->LoadTexture(m_TileSet[i].name, "assets/mapas/" + m_TileSet[i].source);
-    }
+    for(unsigned int i=0; i < m_Tilesets.size(); i++)
+        TextureController::GetInstance()->LoadTexture(m_Tilesets[i].Name, "assets/mapas/" + m_Tilesets[i].Source);
 }
 
-void TileManager::RenderLayer()
-{
-    for(unsigned int i = 0; i < m_NRows; i++)
-    {
-        for(unsigned int j = 0; j < m_ColCount; j++)
-        {
-            int tileID = m_TileMap[i][j];
+void TileManager::Render(){
+    for(unsigned int i = 0; i < m_RowCount; i++){
+        for(unsigned int j = 0; j < m_ColCount; j++){
+
+            int tileID = m_Tilemap[i][j];
+            int temp = tileID;
 
             if(tileID == 0)
                 continue;
-            else
-            {
-                int index;
-                if(m_TileSet.size() > 1)
-                {
-                    for(unsigned int k = 1; k < m_TileSet.size(); k++)
-                    {
-                        if(tileID > m_TileSet[k].firstID && tileID < m_TileSet[k].lastID)
-                        {
-                            tileID = tileID + m_TileSet[k].nTile - m_TileSet[k].lastID;
+
+            else{
+                int index = 0;
+                if(m_Tilesets.size() > 1){
+                    for(unsigned int k = 1; k < m_Tilesets.size(); k++){
+                        if(tileID > m_Tilesets[k].FirstID && tileID < m_Tilesets[k].LastID){
+                            tileID = tileID + m_Tilesets[k].TileCount - m_Tilesets[k].LastID;
                             index = k;
                             break;
                         }
                     }
                 }
 
-                TileSet tilesets = m_TileSet[index];
-                int tilerow = tileID / tilesets.colCount;
-                int tilecol = tileID - tilerow * tilesets.colCount - 1;
+                Tileset ts = m_Tilesets[index];
+                int tileRow = tileID/ts.ColCount;
+                int tileCol = tileID - tileRow*ts.ColCount-1;
 
-                if(tileID % tilesets.colCount == 0)
-                {
-                    tilerow--;
-                    tilecol = tilesets.colCount - 1;
+                // if this tile is on the las column
+                if(tileID % ts.ColCount == 0){
+                    tileRow--;
+                    tileCol = ts.ColCount - 1;
                 }
 
-                TextureController::GetInstance()->DrawTile(tilesets.name, tilesets.tileSize, j * tilesets.tileSize,  i * tilesets.tileSize, tilerow, tilecol);
+                TextureController::GetInstance()->DrawTile(ts.Name, ts.TileSize, j * ts.TileSize, i * ts.TileSize, tileRow, tileCol);
             }
         }
     }
 }
 
-void TileManager::UpdateLayer()
-{
+void TileManager::Update(){
 
 }
+
