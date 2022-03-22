@@ -26,6 +26,7 @@ class Map
 
         std::vector<LayerManager*> GetMapLayers(){return m_MapLayers;}
     private:
+        friend class MapParser;
         std::vector<LayerManager*> m_MapLayers;
 };
 

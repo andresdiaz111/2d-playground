@@ -4,6 +4,8 @@
 #include "KnightChar.h"
 #include "EventHandlers.h"
 #include "Clock.h"
+#include "MapParser.h"
+#include <iostream>
 
 KnightChar *player = nullptr;
 
@@ -30,6 +32,14 @@ bool EngineCore::Init()
         SDL_Log("Fail to create renderer SDL error: %s", SDL_GetError());
         return false;
     }
+
+    if(!MapParser::GetInstance()->LoadMapParser())
+    {
+        std::cout <<"Fail to load map" << std::endl;
+    }
+
+    m_map = MapParser::GetInstance()->GetMaps("map");
+
     TextureController::GetInstance()->LoadTexture("Knight", "assets/knight2idle.png");
     TextureController::GetInstance()->LoadTexture("Knight_run", "assets/knight2run.png");
     player = new KnightChar(new Properties("Knight", 100, 200, 120, 100));
@@ -55,15 +65,16 @@ void EngineCore::Quit()
 void EngineCore::Update()
 {
     float dt = Clock::GetInstance()->GetDeltaTime();
+    m_map->Update();
     player->UpdateObject(dt);
 }
 
 void EngineCore::Render()
 {
-    SDL_SetRenderDrawColor(m_Renderer, 124, 219, 254, 255);
+    SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
     SDL_RenderClear(m_Renderer);
 
-
+    m_map->Render();
     player->DrawObject();
     SDL_RenderPresent(m_Renderer);
 }

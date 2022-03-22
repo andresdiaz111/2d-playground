@@ -3,8 +3,9 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+#include "Map.h"
 
-#define WINDOW_WIDTH 1000
+#define WINDOW_WIDTH 500
 #define WINDOW_HEIGHT 500
 
 class EngineCore
@@ -37,6 +38,7 @@ class EngineCore
         EngineCore(){}
         bool m_IsRunning;
 
+        Map *m_map;
         SDL_Window *m_Window;
         SDL_Renderer *m_Renderer;
         static EngineCore *s_Instance;

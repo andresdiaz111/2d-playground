@@ -12,7 +12,10 @@ class MapParser
         bool LoadMapParser();
         void CleanMapParsers();
 
-        inline Map *GetMaps();
+        inline Map *GetMaps(std::string id)
+        {
+            return m_Maps[id];
+        }
         inline static MapParser *GetInstance()
         {
             return s_Instance = (s_Instance != nullptr) ? s_Instance : new MapParser();
@@ -21,9 +24,9 @@ class MapParser
     private:
         bool Parse(std::string id,  std::string path);
         TileSet ParseTileList(TiXmlElement *xmlTileSet);
-        TileManager *ParseTileLayer(TiXmlElement *xmlLayer);
+        TileManager *ParseTileLayer(TiXmlElement *xmlLayer, tileList tileset, int tilesize, int rowcount, int colcount);
     private:
-        MapParser();
+        MapParser(){}
         static MapParser *s_Instance;
         std::map<std::string, Map*> m_Maps;
 };

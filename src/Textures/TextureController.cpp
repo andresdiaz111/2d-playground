@@ -38,6 +38,12 @@ void TextureController::CleanTextureController()
     m_TextureMap.clear();
     SDL_Log("Texture clean");
 }
+void TextureController::DrawTile(std::string tileID, int tilesize, int x, int y, int row, int frame, SDL_RendererFlip flip)
+{
+    SDL_Rect dsrect = {x, y, tilesize, tilesize};
+    SDL_Rect srcrect = {tilesize * frame, tilesize * row, tilesize, tilesize};
+    SDL_RenderCopyEx(EngineCore::GetInstance()->GetRenderer(), m_TextureMap[tileID], &srcrect, &dsrect, 0, 0, flip);
+}
 
 void TextureController::DrawTexture(std::string id, int x, int y, int width, int height, SDL_RendererFlip flip)
 {
