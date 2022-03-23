@@ -5,6 +5,7 @@
 #include "EventHandlers.h"
 #include "Clock.h"
 #include "MapParser.h"
+#include "View.h"
 #include <iostream>
 
 KnightChar *player = nullptr;
@@ -42,9 +43,12 @@ bool EngineCore::Init()
 
     TextureController::GetInstance()->LoadTexture("Knight", "assets/knight2idle.png");
     TextureController::GetInstance()->LoadTexture("Knight_run", "assets/knight2run.png");
-    player = new KnightChar(new Properties("Knight", 100, 200, 120, 100));
-    Transformation tf;
-    tf.Log();
+    TextureController::GetInstance()->LoadTexture("Knight_noat", "assets/knight2na.png");
+    TextureController::GetInstance()->LoadTexture("Knight_cat", "assets/knightcombo.png");
+    TextureController::GetInstance()->LoadTexture("Knight_crou", "assets/knightcrou.png");
+    TextureController::GetInstance()->LoadTexture("Knight_crouat", "assets/knigthcrouattack.png");
+    player = new KnightChar(new Properties("Knight", 10, 485, 120, 100));
+    View::GetInstance()->SetTarget(player->GetTarget());
     return m_IsRunning = true;
 }
 
@@ -68,6 +72,7 @@ void EngineCore::Update()
     float dt = Clock::GetInstance()->GetDeltaTime();
     m_map->Update();
     player->UpdateObject(dt);
+    View::GetInstance()->UpdateView(dt);
 }
 
 void EngineCore::Render()

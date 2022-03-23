@@ -1,5 +1,7 @@
 #include "TextureController.h"
 #include "../Engine/EngineCore.h"
+#include "Vector.h"
+#include "View.h"
 
 TextureController *TextureController::s_Instance = nullptr;
 
@@ -40,8 +42,10 @@ void TextureController::CleanTextureController()
 }
 void TextureController::DrawTile(std::string tilesetID, int tileSize, int x, int y, int row, int frame, SDL_RendererFlip flip)
 {
-    SDL_Rect srcRect = {tileSize*frame, tileSize*row, tileSize, tileSize};
-    SDL_Rect dstRect = {x, y, tileSize, tileSize};
+    SDL_Rect srcRect = {tileSize* frame, tileSize* row, tileSize, tileSize};
+
+    Vector view = View::GetInstance()->GetPos();
+    SDL_Rect dstRect = {x - view.X, y - view.Y, tileSize, tileSize};
     SDL_RenderCopyEx(EngineCore::GetInstance()->GetRenderer(), m_TextureMap[tilesetID], &srcRect, &dstRect, 0, 0, flip);
 }
 

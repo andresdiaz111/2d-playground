@@ -34,6 +34,11 @@ class EngineCore
             return m_Renderer;
         }
 
+        inline Map *GetMap()
+        {
+            return m_map;
+        }
+
     private:
         EngineCore(){}
         bool m_IsRunning;
